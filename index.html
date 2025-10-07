@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transforma tu Espacio | TEMODELACIONES</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mustard: #D4A017;
+            --mustard-light: #E6B325;
+            --mustard-dark: #B8860B;
+            --gray: #4A4A4A;
+            --gray-light: #8A8A8A;
+            --gray-dark: #2D2D2D;
+            --white: #FFFFFF;
+            --black: #1A1A1A;
+            --bg-light: #F8F9FA;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background-color: var(--white);
+            color: var(--gray-dark);
+            overflow-x: hidden;
+        }
+        
+        /* Modern Navigation */
+        .navbar {
+            background: linear-gradient(135deg, var(--white) 0%, rgba(255,255,255,0.98) 100%);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+            padding: 1.2rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-bottom: 1px solid rgba(212, 160, 23, 0.1);
+        }
+        
+        .navbar.scrolled {
+            padding: 0.8rem 0;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        .navbar-brand {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--black);
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand span {
+            color: var(--mustard);
+            margin-left: 4px;
+        }
+        
+        .navbar-brand .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--mustard);
+            border-radius: 8px;
+            margin-right: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            color: var(--gray) !important;
+            margin: 0 8px;
+            padding: 8px 16px !important;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .nav-link:hover {
+            color: var(--mustard) !important;
+            background: rgba(212, 160, 23, 0.08);
+            transform: translateY(-1px);
+        }
+        
+        .nav-link.active {
+            color: var(--mustard) !important;
+            background: rgba(212, 160, 23, 0.12);
+            font-weight: 600;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--mustard);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            width: 70%;
+        }
+        
+        .navbar-toggler {
+            border: none;
+            padding: 8px;
+            border-radius: 10px;
+            background: rgba(212, 160, 23, 0.1);
+        }
+        
+        .navbar-toggler:focus {
+            box-shadow: none;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(26,26,26,0.9) 0%, rgba(45,45,45,0.85) 100%), 
+                        url('Images/background-hero.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            position: relative;
+            color: var(--white);
+        }
+        
+        .hero-content {
+            max-width: 800px;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+        
+        .hero h1 .highlight {
+            color: var(--mustard);
+            position: relative;
+        }
+        
+        .hero h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(212, 160, 23, 0.3);
+            z-index: -1;
+            border-radius: 4px;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            line-height: 1.6;
+        }
+        
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, var(--mustard) 0%, var(--mustard-light) 100%);
+            color: var(--black);
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(212, 160, 23, 0.3);
+            margin-top: 20px;
+            border: none;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(212, 160, 23, 0.4);
+            color: var(--black);
+        }
+        
+        .cta-button i {
+            margin-right: 12px;
+            font-size: 1.3rem;
+        }
+        
+        /* Services Gallery */
+        .services-gallery {
+            padding: 120px 0;
+            background: var(--bg-light);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 80px;
+            color: var(--black);
+            position: relative;
+            letter-spacing: -1px;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--mustard);
+            border-radius: 2px;
+        }
+        
+        .service-section {
+            margin-bottom: 100px;
+            scroll-margin-top: 100px;
+        }
+        
+        .service-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .service-header h3 {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+        
+        .service-header p {
+            color: var(--gray);
+            max-width: 600px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+        
+        .service-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 380px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--white);
+            border: 1px solid rgba(212, 160, 23, 0.1);
+        }
+        
+        .gallery-item.active {
+            transform: scale(1.02);
+            box-shadow: 0 20px 50px rgba(212, 160, 23, 0.2);
+            border-color: var(--mustard);
+            z-index: 2;
+        }
+        
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.6s ease;
+            filter: brightness(0.9);
+        }
+        
+        .gallery-item.active .gallery-image {
+            filter: brightness(1);
+            transform: scale(1.05);
+        }
+        
+        .gallery-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(26,26,26,0.95) 0%, transparent 100%);
+            color: var(--white);
+            transform: translateY(0);
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item.active .gallery-content {
+            background: linear-gradient(to top, rgba(26,26,26,0.98) 0%, rgba(212, 160, 23, 0.1) 100%);
+        }
+        
+        .gallery-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: var(--mustard);
+            transition: all 0.3s ease;
+        }
+        
+        .gallery-item.active .gallery-title {
+            transform: translateY(-5px);
+            color: var(--mustard-light);
+        }
+        
+        .gallery-description {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            line-height: 1.5;
+            transition: all 0.3s ease;
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .gallery-item.active .gallery-description {
+            max-height: 100px;
+            opacity: 1;
+        }
+        
+        /* Process Section */
+        .process {
+            padding: 120px 0;
+            background: var(--white);
+        }
+        
+        .process-step {
+            text-align: center;
+            padding: 40px 25px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            background: var(--white);
+            border: 1px solid rgba(212, 160, 23, 0.1);
+        }
+        
+        .process-step:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+            border-color: rgba(212, 160, 23, 0.3);
+        }
+        
+        .process-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--mustard) 0%, var(--mustard-light) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--white);
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .process-step:hover .process-icon {
+            transform: scale(1.1) rotate(5deg);
+        }
+        
+        .process-step h4 {
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: var(--black);
+            font-size: 1.3rem;
+        }
+        
+        .process-step p {
+            color: var(--gray);
+            line-height: 1.6;
+        }
+        
+        /* WhatsApp Float */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+            z-index: 1000;
+            animation: pulse 2s infinite;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-float i {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
+            color: var(--white);
+            padding: 80px 0 30px;
+        }
+        
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+        
+        .footer-logo span {
+            color: var(--mustard);
+        }
+        
+        .footer-logo .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--mustard);
+            border-radius: 10px;
+            margin-right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--black);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .social-links {
+            display: flex;
+            margin-top: 25px;
+            gap: 12px;
+        }
+        
+        .social-link {
+            width: 45px;
+            height: 45px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background: var(--mustard);
+            transform: translateY(-3px);
+        }
+        
+        .social-link i {
+            color: var(--white);
+            font-size: 1.2rem;
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 30px;
+            margin-top: 60px;
+            text-align: center;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .service-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-item {
+                height: 320px;
+            }
+            
+            .navbar-collapse {
+                background: var(--white);
+                padding: 20px;
+                border-radius: 20px;
+                margin-top: 15px;
+                box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+                border: 1px solid rgba(212, 160, 23, 0.1);
+            }
+        }
+        
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Modern Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <div class="logo-icon">T</div>
+                TEMODELA<span>C</span>IONES
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#hero">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#tablaroca">Tablaroca</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#entretenimiento">Entretenimiento</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#cocinas">Cocinas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#closets">Closets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#industriales">Industriales</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content fade-in">
+                <h1>Transformamos Espacios con <span class="highlight">Tablaroca</span> de Alta Calidad</h1>
+                <p>Especialistas en remodelación residencial y comercial. Creamos ambientes funcionales y estéticos que se adaptan a tu estilo de vida.</p>
+                <a href="https://wa.me/525530528999?text=Hola,%20me%20interesan%20sus%20servicios%20de%20tablaroca" class="cta-button fade-in" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Cotizar Proyecto
+                </a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Services Gallery -->
+    <section class="services-gallery" id="services">
+        <div class="container">
+            <h2 class="section-title fade-in">Nuestros Servicios</h2>
+            
+            <!-- Tablaroca Section -->
+            <div class="service-section fade-in" id="tablaroca">
+                <div class="service-header">
+                    <h3>Instalación de Tablaroca</h3>
+                    <p>Sistemas de drywall profesionales para divisiones, techos y acabados de alta calidad en residencias y espacios comerciales.</p>
+                </div>
+                <div class="service-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/division-residencial.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Divisiones Residenciales</h4>
+                            <p class="gallery-description">Creación de espacios personalizados en hogares con acabados perfectos</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/techos-residenciales.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Techos con Tablaroca</h4>
+                            <p class="gallery-description">Techos suspendidos y diseños modernos con iluminación integrada</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/acabados.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Acabados Profesionales</h4>
+                            <p class="gallery-description">Pintura, texturizado y detalles de alta calidad garantizada</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Centros de Entretenimiento Section -->
+            <div class="service-section fade-in" id="entretenimiento">
+                <div class="service-header">
+                    <h3>Centros de Entretenimiento</h3>
+                    <p>Diseño y construcción de muebles especializados para organizar tu área de entretenimiento con tablaroca.</p>
+                </div>
+                <div class="service-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/centro-tv.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Sala de TV Moderna</h4>
+                            <p class="gallery-description">Diseños integrados para televisores y equipos de última generación</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/estanteria.webp');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Estanterías Personalizadas</h4>
+                            <p class="gallery-description">Espacios organizados para libros, decoración y electrónicos</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/estudios-grabacion.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Sistemas de Audio</h4>
+                            <p class="gallery-description">Integración profesional de equipos de sonido y home theater</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Cocinas Integrales Section -->
+            <div class="service-section fade-in" id="cocinas">
+                <div class="service-header">
+                    <h3>Cocinas Integrales</h3>
+                    <p>Remodelación completa de cocinas con diseño funcional y materiales de primera calidad en tablaroca.</p>
+                </div>
+                <div class="service-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/cocinas.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Muebles de Cocina</h4>
+                            <p class="gallery-description">Alacenas y gabinetes personalizados con máximo aprovechamiento</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/isla-cocina.jpeg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Islas de Cocina</h4>
+                            <p class="gallery-description">Diseños modernos y funcionales que optimizan el espacio</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/barra-desayunadora.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Barras de Desayuno</h4>
+                            <p class="gallery-description">Espacios adicionales para comer con estilo y comodidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Closets Section -->
+            <div class="service-section fade-in" id="closets">
+                <div class="service-header">
+                    <h3>Closets y Walking Closet</h3>
+                    <p>Sistemas de almacenamiento personalizados que maximizan el espacio y organización con tablaroca.</p>
+                </div>
+                <div class="service-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/closet.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Closets Empotrados</h4>
+                            <p class="gallery-description">Máximo aprovechamiento del espacio con diseños a medida</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/walking-closet.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Walking Closet</h4>
+                            <p class="gallery-description">Espacios amplios y organizados para tu vestuario completo</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/sistema-organizador.webp');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Sistemas de Organización</h4>
+                            <p class="gallery-description">Barras, cajones y estantes especializados para cada necesidad</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Servicios Industriales Section -->
+            <div class="service-section fade-in" id="industriales">
+                <div class="service-header">
+                    <h3>Servicios Industriales</h3>
+                    <p>Tablaroca para bodegas, naves industriales y espacios de producción con acabados profesionales.</p>
+                </div>
+                <div class="service-gallery">
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/oficinas-industriales.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Oficinas en Bodegas</h4>
+                            <p class="gallery-description">Espacios administrativos profesionales dentro de naves industriales</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/divisiones-oficinas.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Divisiones Industriales</h4>
+                            <p class="gallery-description">Separación eficiente de áreas de producción y almacenamiento</p>
+                        </div>
+                    </div>
+                    <div class="gallery-item">
+                        <div class="gallery-image" style="background-image: url('Images/techo-industrial.jpg');"></div>
+                        <div class="gallery-content">
+                            <h4 class="gallery-title">Techos Industriales</h4>
+                            <p class="gallery-description">Sistemas resistentes y duraderos para espacios de gran tamaño</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Process Section -->
+    <section class="process" id="process">
+        <div class="container">
+            <h2 class="section-title fade-in">Nuestro Proceso</h2>
+            <div class="row">
+                <div class="col-md-3 fade-in">
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h4>Consulta</h4>
+                        <p>Evaluamos tus necesidades y diseñamos una solución personalizada a tu medida</p>
+                    </div>
+                </div>
+                <div class="col-md-3 fade-in">
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-ruler-combined"></i>
+                        </div>
+                        <h4>Diseño</h4>
+                        <p>Creamos planos detallados y visualizaciones 3D de tu proyecto</p>
+                    </div>
+                </div>
+                <div class="col-md-3 fade-in">
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-hammer"></i>
+                        </div>
+                        <h4>Ejecución</h4>
+                        <p>Implementamos el proyecto con materiales de primera calidad y mano de obra especializada</p>
+                    </div>
+                </div>
+                <div class="col-md-3 fade-in">
+                    <div class="process-step">
+                        <div class="process-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <h4>Entrega</h4>
+                        <p>Revisión final detallada y entrega del proyecto terminado con garantía</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/525530528999?text=Hola,%20me%20interesan%20sus%20servicios%20de%20tablaroca" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 fade-in">
+                    <div class="footer-logo">
+                        <span class="logo-icon">T</span>
+                        TEMODELA<span>C</span>IONES
+                    </div>
+                    <p>Transformando espacios, creando hogares y negocios funcionales con tablaroca de alta calidad.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="https://wa.me/525530528999" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-3 fade-in">
+                    <h5>Servicios</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#tablaroca" class="text-white-50 text-decoration-none">Tablaroca</a></li>
+                        <li><a href="#entretenimiento" class="text-white-50 text-decoration-none">Centros de Entretenimiento</a></li>
+                        <li><a href="#cocinas" class="text-white-50 text-decoration-none">Cocinas Integrales</a></li>
+                        <li><a href="#closets" class="text-white-50 text-decoration-none">Closets</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 fade-in">
+                    <h5>Contacto</h5>
+                    <ul class="list-unstyled">
+                        <li class="text-white-50">Tel: 55 3052 8999</li>
+                        <li class="text-white-50">Email: temodelaciones@gmail.com</li>
+                        <li class="text-white-50">CDMX y Área Metropolitana</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TEMODELACIONES. Todos los derechos reservados.</p>
+                <p>&copy; Diseñado por Infinitec Solutions</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Scroll animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            
+            const fadeInOnScroll = function() {
+                fadeElements.forEach(element => {
+                    const elementTop = element.getBoundingClientRect().top;
+                    const elementVisible = 150;
+                    
+                    if (elementTop < window.innerHeight - elementVisible) {
+                        element.classList.add('visible');
+                    }
+                });
+            };
+            
+            // Check on load
+            fadeInOnScroll();
+            
+            // Check on scroll
+            window.addEventListener('scroll', fadeInOnScroll);
+            
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            // Active nav link
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    const sectionTop = section.offsetTop;
+                    const sectionHeight = section.clientHeight;
+                    if (scrollY >= (sectionTop - 100)) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${current}`) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+            
+            // Gallery item scroll animation
+            const galleryItems = document.querySelectorAll('.gallery-item');
+            
+            function checkGalleryItems() {
+                galleryItems.forEach(item => {
+                    const itemTop = item.getBoundingClientRect().top;
+                    const itemBottom = item.getBoundingClientRect().bottom;
+                    const windowHeight = window.innerHeight;
+                    
+                    // Activate item when it's in the middle of the viewport
+                    if (itemTop < windowHeight * 0.7 && itemBottom > windowHeight * 0.3) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Initial check
+            checkGalleryItems();
+            
+            // Check on scroll
+            window.addEventListener('scroll', checkGalleryItems);
+        });
+    </script>
+</body>
+</html>
